@@ -35,19 +35,16 @@ class EntityUnitTest {
 
 	@BeforeEach
 	void setUp() {
-		// Create and persist a Doctor
+
 		d1 = new Doctor("DoctorFirstName", "DoctorLastName", 45, "doctor@example.com");
 		entityManager.persistAndFlush(d1);
 
-		// Create and persist a Patient
 		p1 = new Patient("PatientFirstName", "PatientLastName", 60, "patient@example.com");
 		entityManager.persistAndFlush(p1);
 
-		// Create and persist a Room
 		r1 = new Room("example_room");
 		entityManager.persistAndFlush(r1);
 
-		// Create Appointments associated with the Doctor, Patient, and Room
 		a1 = new Appointment(p1, d1, r1, LocalDateTime.now(), LocalDateTime.now().plusHours(1));
 		a2 = new Appointment(p1, d1, r1, LocalDateTime.of(2023, 4, 10, 10, 30), LocalDateTime.now().plusHours(2));
 		a3 = new Appointment(p1, d1, r1, LocalDateTime.of(2023, 4, 10, 10, 30), LocalDateTime.now().plusHours(3));
@@ -59,10 +56,8 @@ class EntityUnitTest {
 	@Test
 	void testDoctorEntityPersistence() {
 
-		// Retrieve the doctor from the database
 		Doctor retrievedDoctor = entityManager.find(Doctor.class, d1.getId());
 
-		// Perform assertions to test the entity's fields
 		assertThat(retrievedDoctor).isNotNull();
 		assertThat(retrievedDoctor.getFirstName()).isEqualTo("DoctorFirstName");
 		assertThat(retrievedDoctor.getLastName()).isEqualTo("DoctorLastName");
@@ -75,7 +70,6 @@ class EntityUnitTest {
 
 		Patient retrievedPatient = entityManager.find(Patient.class, p1.getId());
 
-		// Perform assertions to test the entity's fields
 		assertThat(retrievedPatient).isNotNull();
 		assertThat(retrievedPatient.getFirstName()).isEqualTo("PatientFirstName");
 		assertThat(retrievedPatient.getLastName()).isEqualTo("PatientLastName");
@@ -88,7 +82,6 @@ class EntityUnitTest {
 
 		Room retrievedRoom = entityManager.find(Room.class, r1.getRoomName());
 
-		// Perform assertions to test the entity's fields
 		assertThat(retrievedRoom).isNotNull();
 		assertThat(retrievedRoom.getRoomName()).isEqualTo("example_room");
 	}
@@ -98,7 +91,6 @@ class EntityUnitTest {
 
 		Appointment retrievedAppointment = entityManager.find(Appointment.class, a2.getId());
 
-		// Perform assertions to test the entity's fields
 		assertThat(retrievedAppointment).isNotNull();
 		assertThat(retrievedAppointment.getDoctor().getFirstName()).isEqualTo("DoctorFirstName");
 		assertThat(retrievedAppointment.getPatient().getLastName()).isEqualTo("PatientLastName");
@@ -115,7 +107,5 @@ class EntityUnitTest {
 
 		assertThat(retrievedAppointment1.overlaps(retrievedAppointment2)).isFalse();
 		assertThat(retrievedAppointment2.overlaps(retrievedAppointment3)).isTrue();
-
 	}
-
 }
