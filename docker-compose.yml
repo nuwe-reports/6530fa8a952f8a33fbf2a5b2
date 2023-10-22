@@ -16,8 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.maven
-      args:
-        - WAIT_FOR_MYSQL_SCRIPT=wait-for-mysql.sh
+
     ports:
       - "8080:8080"
     container_name: myapp
