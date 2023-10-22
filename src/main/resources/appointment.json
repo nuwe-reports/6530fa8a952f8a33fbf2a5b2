@@ -1,0 +1,19 @@
+{
+  "patient": {
+    "firstName": "Perla",
+    "lastName": "Amalia",
+    "age": 24,
+    "email": "p.amalia@hospital.accwe"
+  },
+  "doctor": {
+    "firstName": "Jose Luis",
+    "lastName": "Olaya",
+    "age": 37,
+    "email": "j.olaya@email.com"
+  },
+  "room": {
+    "roomName": "DermatologyXXXX"
+  },
+  "startsAt": "14:00 23/10/2023",
+  "finishesAt": "15:00 23/10/2023"
+}

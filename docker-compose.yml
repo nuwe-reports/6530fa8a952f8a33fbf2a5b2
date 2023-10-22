@@ -1,0 +1,30 @@
+version: '3'
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPWD
+      MYSQL_DATABASE: accwe-hospital
+      MYSQL_USER: rootuser
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    container_name: mysql
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.maven
+      args:
+        - WAIT_FOR_MYSQL_SCRIPT=wait-for-mysql.sh
+    ports:
+      - "8080:8080"
+    container_name: myapp
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/accwe-hospital
+      SPRING_DATASOURCE_USERNAME: rootuser
+      SPRING_DATASOURCE_PASSWORD: root
+    restart: always
