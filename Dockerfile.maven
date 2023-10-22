@@ -11,17 +11,17 @@ RUN mvn dependency:go-offline
 # Copy the source code to the builder stage
 COPY src ./src
 
-# Build the application without testing because there are errors in tests I didn't do
+# Build the application without testing because there are errors in tests I was not allowed to change
 RUN mvn clean package -DskipTests
 
-# Use a lightweight image as the final stage
+#Use a lightweight image as the final stage
 FROM bellsoft/liberica-openjdk-alpine:17.0.1
 
 # Install MySQL client tools
 RUN apk update
 RUN apk add mysql-client
 
-WORKDIR /app
+ WORKDIR /app
 
 # Copy only the application artifacts from the builder image
 COPY target/accenture-techhub-0.0.1-SNAPSHOT.war ./app.war
@@ -36,5 +36,5 @@ RUN chmod +x ./wait-for-mysql.sh
 EXPOSE 8080
 
 # Set the entrypoint to the wait-for-mysql.sh script
-# ENTRYPOINT ["sh", "wait-for-mysql.sh", "java", "-jar", "app.war"]
-ENTRYPOINT ["java", "-jar", "app.war"]
+ENTRYPOINT ["sh", "wait-for-mysql.sh", "java", "-jar", "app.war"]
+# ENTRYPOINT ["java", "-jar", "app.war"]
