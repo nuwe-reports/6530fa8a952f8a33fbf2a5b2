@@ -30,6 +30,7 @@ Before you begin, ensure you have met the following requirements:
 2. These two Docker files are build and images are run with the console command: docker-compose up that execute the script inside the document: docker-compose.yml
 3. Once the containers are up, the system is ready to make tests through a framework like postman. Use this o similar frameworks to create a database with doctors, patients and rooms as stated in the Endpoints section.
 4. In the Dockerfile.maven the testing is blocked as some tests not modified by me are not passing. To activate the maven testing, you should eliminate the -Dskiptest modifier in line xx of Dockerfile.maven
+5. If the network or computation power is not fast enough could happen that the microservice tryes to communicate with the container mysql before the mysql container is totally responding. In this cases, the Dockerfile.maven should be taking up again.
 
 ## Endpoints
 
