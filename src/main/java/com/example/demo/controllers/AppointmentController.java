@@ -23,8 +23,8 @@ public class AppointmentController {
 
 	@Autowired
 	AppointmentRepository appointmentRepository;
-	@Autowired
-	RoomRepository roomRepository;
+	//@Autowired
+	//RoomRepository roomRepository;
 
 	@GetMapping("/appointments")
 	public ResponseEntity<List<Appointment>> getAllAppointments() {
