@@ -27,14 +27,14 @@ RUN apk add mysql-client
 COPY target/accenture-techhub-0.0.1-SNAPSHOT.war ./app.war
 
 # Copy the wait-for-mysql.sh script into the image
-COPY wait-for-mysql.sh ./wait-for-mysql.sh
+# COPY wait-for-mysql.sh ./wait-for-mysql.sh
 
 # Make the script executable
-RUN chmod +x ./wait-for-mysql.sh
+# RUN chmod +x ./wait-for-mysql.sh
 
 # Expose the service's port
 EXPOSE 8080
 
 # Set the entrypoint to the wait-for-mysql.sh script
-ENTRYPOINT ["sh", "wait-for-mysql.sh", "java", "-jar", "app.war"]
-# ENTRYPOINT ["java", "-jar", "app.war"]
+# ENTRYPOINT ["sh", "wait-for-mysql.sh", "java", "-jar", "app.war"]
+ENTRYPOINT ["java", "-jar", "app.war"]
