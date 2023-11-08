@@ -6,6 +6,4 @@ until mysqladmin ping -h"$1" --silent; do
     sleep 3
 done
 
-# Run the Java application
-#exec "$2" "/app/app.war"
-exec java -jar /app/app.war
+exec java -jar ./target/accenture-techhub-0.0.1-SNAPSHOT.war

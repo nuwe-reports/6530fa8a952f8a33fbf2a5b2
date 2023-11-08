@@ -27,3 +27,9 @@ ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java", "-jar", "app.war"]
 #ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java -jar app.war"]
 #ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "java", "-jar", "app.war"]
 #ENTRYPOINT ["java", "-jar", "app.war"]
+
+# Copy the generated WAR file to the new directory
+
+# COPY target/accenture-techhub-0.0.1-SNAPSHOT.war ./app.war
+
+# ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java", "-jar", "app.war"]
