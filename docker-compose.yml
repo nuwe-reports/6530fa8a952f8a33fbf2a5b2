@@ -11,7 +11,10 @@ services:
       MYSQL_PASSWORD: root
     ports:
       - "3306:3306"
+    networks:
+      - mynetwork
     container_name: mysql
+
   app:
     build:
       context: .
@@ -19,6 +22,8 @@ services:
 
     ports:
       - "8080:8080"
+    networks:
+      - mynetwork
     container_name: myapp
     depends_on:
       - mysql
@@ -26,4 +31,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/accwe-hospital
       SPRING_DATASOURCE_USERNAME: rootuser
       SPRING_DATASOURCE_PASSWORD: root
-    restart: always
+   # restart: always
+networks:
+  mynetwork:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: mynetwork
