@@ -11,20 +11,22 @@ RUN mvn dependency:go-offline
 # Copy the source code to the builder stage
 COPY src ./src
 
+# Copy the wait-for-mysql.sh script into the image
+COPY wait-for-mysql.sh ./wait-for-mysql.sh
+
+# Create a directory to store the WAR file
+RUN mkdir /target
+
 # Build the application
 RUN mvn clean package
 
-#Use a lightweight image as the final stage
-FROM bellsoft/liberica-openjdk-alpine:17.0.1
+# Copy the generated WAR file to the new directory
+
+# COPY target/accenture-techhub-0.0.1-SNAPSHOT.war ./app.war
 
 # Install MySQL client tools
-RUN apk update
-RUN apk add mysql-client
-
- WORKDIR /app
-
-# Copy only the application artifacts from the builder image
-COPY target/accenture-techhub-0.0.1-SNAPSHOT.war ./app.war
+RUN apt-get update
+RUN apt-get install -y mysql-client
 
 # Copy the wait-for-mysql.sh script into the image
 COPY wait-for-mysql.sh ./wait-for-mysql.sh
@@ -35,9 +37,7 @@ RUN chmod +x ./wait-for-mysql.sh
 # Expose the service's port
 EXPOSE 8080
 
-# Set the entrypoint to the wait-for-mysql.sh script
-#CMD ["ash", "wait-for-mysql.sh", "mysql", "java", "-jar", "app.war"]
-ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java", "-jar", "app.war"]
-#ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java -jar app.war"]
-#ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "java", "-jar", "app.war"]
-#ENTRYPOINT ["java", "-jar", "app.war"]
+# ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java", "-jar", "app.war"]
+
+
+ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java", "-jar", "./target/accenture-techhub-0.0.1-SNAPSHOT.war"]

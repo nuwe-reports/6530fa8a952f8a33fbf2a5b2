@@ -69,7 +69,7 @@ public class AppointmentController {
         }
         if (!conflict) {
             appointmentRepository.save(appointment);
-            return new ResponseEntity<>(appointments, HttpStatus.OK);
+            return new ResponseEntity<>(appointmentRepository.findAll(), HttpStatus.OK);
         } else return new ResponseEntity<>(appointments, HttpStatus.NOT_ACCEPTABLE);
     }
 

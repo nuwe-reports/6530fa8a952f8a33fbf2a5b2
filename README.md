@@ -23,7 +23,7 @@ Before you begin, ensure you have met the following requirements:
 ## Getting Started
 
 1. Clone the repository in your computer.
-2. Start Docker daemon
+2. Create a war file from maven and be sure to create it in the target directory. Start Docker daemon
 3. Open the terminal window in the  project folder in your computer and write: docker-compose up
 4. configure your Postman (or similar framework) to send requests to localhost port 8080
 5. You can use the json examples in **src/main/resources** as body requests for testing the service.
