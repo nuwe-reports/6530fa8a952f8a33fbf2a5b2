@@ -24,8 +24,6 @@ public class AppointmentController {
 
     @Autowired
     AppointmentRepository appointmentRepository;
-    //@Autowired
-    //RoomRepository roomRepository;
 
     @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> getAllAppointments() {
@@ -53,26 +51,19 @@ public class AppointmentController {
 
     @PostMapping("/appointment")
     public ResponseEntity<List<Appointment>> createAppointment(@RequestBody Appointment appointment) {
-        // author: Pedro Tejero
+
         List<Appointment> appointments = appointmentRepository.findAll();
-		//check errors in date
+        //hour error check
         if (appointment.getStartsAt().equals(appointment.getFinishesAt())) {
             return new ResponseEntity<>(appointments, HttpStatus.BAD_REQUEST);
         }
-		//check there are no conflicts
-        int i = 0;
-        boolean conflict;
-        conflict = false;
-        while (!conflict && i < appointments.size()) {
-            conflict = appointment.overlaps(appointments.get(i));
-            i = i + 1;
+        //overlaps check
+        if (appointments.stream().anyMatch(appointment::overlaps)) {
+            return new ResponseEntity<>(appointments, HttpStatus.NOT_ACCEPTABLE);
         }
-        if (!conflict) {
-            appointmentRepository.save(appointment);
-            return new ResponseEntity<>(appointmentRepository.findAll(), HttpStatus.OK);
-        } else return new ResponseEntity<>(appointments, HttpStatus.NOT_ACCEPTABLE);
+        appointmentRepository.save(appointment);
+        return new ResponseEntity<>(appointmentRepository.findAll(), HttpStatus.OK);
     }
-
 
     @DeleteMapping("/appointments/{id}")
     public ResponseEntity<HttpStatus> deleteAppointment(@PathVariable("id") long id) {
