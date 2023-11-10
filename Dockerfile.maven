@@ -1,33 +1,19 @@
-# Use a Maven official image as the builder stage
 FROM maven:latest as builder
 
-# Set the working directory in the builder stage
 WORKDIR /app
 
-# Copy the project's POM file and download dependencies
 COPY pom.xml .
 RUN mvn dependency:go-offline
 
-# Copy the source code to the builder stage
 COPY src ./src
-
-# Copy the wait-for-mysql.sh script into the image
 COPY wait-for-mysql.sh ./wait-for-mysql.sh
 
-# Create a directory to store the WAR file
 RUN mkdir /target
-
-# Build the application
 RUN mvn clean package
-
-# Install MySQL client tools
 RUN apt-get update
 RUN apt-get install -y mysql-client
-
-# Make the script executable
 RUN chmod +x ./wait-for-mysql.sh
 
-# Expose the service's port
 EXPOSE 8080
 
 ENTRYPOINT ["/bin/sh", "wait-for-mysql.sh", "mysql", "java", "-jar", "./target/accenture-techhub-0.0.1-SNAPSHOT.war"]

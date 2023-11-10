@@ -43,16 +43,15 @@ class EntityControllerUnitTest {
 
 		@Test
 		void testGetAllDoctors() throws Exception {
-			
 
 			when(doctorRepository.findAll()).thenReturn(doctors);
 
 			mockMvc.perform(get("/api/doctors")).andExpect(status().isOk())
 					.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-					.andExpect(jsonPath("$[0].firstName").value("John")).andExpect(jsonPath("$[0].age").value(35))
+					.andExpect(jsonPath("$[0].firstName").value("John"))
+					.andExpect(jsonPath("$[0].age").value(35))
 					.andExpect(jsonPath("$[1].lastName").value("Smith"));
 		}
-
 		@Test
 		void testGetDoctorById() throws Exception {
 
@@ -64,7 +63,6 @@ class EntityControllerUnitTest {
 					.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 					.andExpect(jsonPath("lastName").value("Doe"));
 		}
-
 		@Test
 		void testGetDoctorByIdNotPresent() throws Exception {
 
@@ -82,12 +80,13 @@ class EntityControllerUnitTest {
 
 			when(doctorRepository.save(doctor1)).thenReturn(doctor1);
 
-			mockMvc.perform(post("/api/doctor").contentType(MediaType.APPLICATION_JSON).content(doctor1Json))
-					.andExpect(status().isCreated()).andExpect(jsonPath("age").value(35))
+			mockMvc.perform(post("/api/doctor")
+					.contentType(MediaType.APPLICATION_JSON).content(doctor1Json))
+					.andExpect(status().isCreated())
+					.andExpect(jsonPath("age").value(35))
 					.andExpect(jsonPath("lastName").value("Doe"));
 
 		}
-
 		@Test
 		void testDeleteDoctor() throws Exception {
 
@@ -96,7 +95,8 @@ class EntityControllerUnitTest {
 
 			when(doctorRepository.findById(id)).thenReturn(Optional.of(doctor1));
 
-			mockMvc.perform(delete("/api/doctors/{id}", id)).andExpect(status().isOk());
+			mockMvc.perform(delete("/api/doctors/{id}", id))
+					.andExpect(status().isOk());
 		}
 
 		@Test
@@ -106,7 +106,8 @@ class EntityControllerUnitTest {
 
 			when(doctorRepository.findById(id)).thenReturn(Optional.empty());
 
-			mockMvc.perform(delete("/api/doctors/{id}", id)).andExpect(status().isNotFound());
+			mockMvc.perform(delete("/api/doctors/{id}", id))
+					.andExpect(status().isNotFound());
 		}
 
 		@Test
