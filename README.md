@@ -9,8 +9,8 @@
 - [**Getting Started**](#getting-started)
 - [**Docker Configuration**](#docker-configuration)
 - [**Endpoints**](#endpoints)
-- [**Test**](#Testing)
-- [**Classes Relationships**](#Classes)
+- [**Test**](#test)
+- [**Classes Relationships**](#classes-relationships)
 
 
 ## Prerequisites
