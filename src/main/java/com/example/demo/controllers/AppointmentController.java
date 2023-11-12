@@ -61,6 +61,7 @@ public class AppointmentController {
         if (appointments.stream().anyMatch(appointment::overlaps)) {
             return new ResponseEntity<>(appointments, HttpStatus.NOT_ACCEPTABLE);
         }
+        //if everything is OK save appointment and send the updated list
         appointmentRepository.save(appointment);
         return new ResponseEntity<>(appointmentRepository.findAll(), HttpStatus.OK);
     }
