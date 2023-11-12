@@ -64,5 +64,5 @@ Before you begin, ensure you have met the following requirements:
 - Rooms are an independent class whose name is at the same time their identification in the database.
 - Appointments are made out of one Doctor, one Patient and One room at a date. So, there can be several appointments with the same doctor and patient data but in different times.
 
-![Classes Relationships](./images/class-diagram.png)
+![Classes Relationships](./images/class_diagram.png)
 
