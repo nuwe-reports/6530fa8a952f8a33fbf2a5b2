@@ -10,6 +10,7 @@
 - [**Docker Configuration**](#docker-configuration)
 - [**Endpoints**](#endpoints)
 - [**Test**](#Testing)
+- [**Classes Relationships**](#Classes)
 
 
 ## Prerequisites
@@ -55,3 +56,13 @@ Before you begin, ensure you have met the following requirements:
 1. I was assigned two tasks: Create entities test for the entities inside the EntityUnitTest.java (Appointment, Doctor,Patient and Room). They were made and working.
 
 2. The second task was to create Test for each of these entities Controllers inside the EntityControllerUnitTest.java (Doctor,Patient and Room). They were made and ready to test the code.
+
+## Classes Relationships
+1. This is a image of the organization of the classes:
+
+- Doctors and Patients inherit from Person class, so the have the same attributes but are save in different tables in the database.
+- Rooms are an independent class whose name is at the same time their identification in the database.
+- Appointments are made out of one Doctor, one Patient and One room at a date. So, there can be several appointments with the same doctor and patient data but in different times.
+
+![Classes Relationships](./images/class-diagram.png)
+
